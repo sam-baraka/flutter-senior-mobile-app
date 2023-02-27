@@ -48,7 +48,7 @@ class WelcomePage extends ConsumerWidget {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const PhoneNumberInputPage();
+                  return PhoneNumberInputPage();
                 }));
               },
               color: Colors.purple,
