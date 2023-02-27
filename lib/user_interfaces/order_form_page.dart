@@ -49,86 +49,88 @@ class OrderFormPage extends ConsumerWidget {
         child: Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.dehaze),
-                    Expanded(child: Container())
-                  ],
-                ),
-                const SizedBox(
-                  height: 150,
-                ),
-                const Text(
-                  'Fill Below To Order',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TextField(
-                  name: 'pickup_point',
-                  hint: 'Pickup point',
-                  label: 'The Address, Waiyaki Way, Westlands',
-                  keyboardType: TextInputType.streetAddress,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TextField(
-                  name: 'drp_off_point',
-                  hint: 'Drop-off point',
-                  label: 'The Address, Waiyaki Way, Westlands',
-                  keyboardType: TextInputType.name,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TextField(
-                  name: 'weight',
-                  hint: 'Est. Weight (KGs)',
-                  label: '0.00',
-                  keyboardType: TextInputType.streetAddress,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TextField(
-                  name: 'delivery_instructions',
-                  hint: 'Delivery Instructions',
-                  label: 'Call me here',
-                  keyboardType: TextInputType.none,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ref.watch(saveToSqlProvider).maybeWhen(orElse: () {
-                  return MaterialButton(
-                    onPressed: () {
-                      if (formKey.currentState!.saveAndValidate()) {
-                        ref
-                            .read(saveToSqlProvider.notifier)
-                            .saveToSql(data: formKey.currentState!.value);
-                      }
-                    },
-                    color: Colors.purple,
-                    child: const Text(
-                      'Confirm & Order a Trip',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  );
-                }, loading: () {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.dehaze),
+                      Expanded(child: Container())
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  const Text(
+                    'Fill Below To Order',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const TextField(
+                    name: 'pickup_point',
+                    hint: 'Pickup point',
+                    label: 'The Address, Waiyaki Way, Westlands',
+                    keyboardType: TextInputType.streetAddress,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const TextField(
+                    name: 'drp_off_point',
+                    hint: 'Drop-off point',
+                    label: 'The Address, Waiyaki Way, Westlands',
+                    keyboardType: TextInputType.name,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const TextField(
+                    name: 'weight',
+                    hint: 'Est. Weight (KGs)',
+                    label: '0.00',
+                    keyboardType: TextInputType.streetAddress,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const TextField(
+                    name: 'delivery_instructions',
+                    hint: 'Delivery Instructions',
+                    label: 'Call me here',
+                    keyboardType: TextInputType.none,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ref.watch(saveToSqlProvider).maybeWhen(orElse: () {
+                    return MaterialButton(
+                      onPressed: () {
+                        if (formKey.currentState!.saveAndValidate()) {
+                          ref
+                              .read(saveToSqlProvider.notifier)
+                              .saveToSql(data: formKey.currentState!.value);
+                        }
+                      },
+                      color: Colors.purple,
+                      child: const Text(
+                        'Confirm & Order a Trip',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }, loading: () {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+                ],
+              ),
             ),
           ),
         ));
