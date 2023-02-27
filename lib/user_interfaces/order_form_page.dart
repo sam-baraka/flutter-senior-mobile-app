@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:interview_amitruck/database_client/database_client.dart';
 import 'package:interview_amitruck/providers/sql/save_to_sql_provider.dart';
+import 'package:interview_amitruck/user_interfaces/home_orders_page.dart';
 
 class OrderFormPage extends ConsumerWidget {
   OrderFormPage({super.key});
@@ -18,25 +19,10 @@ class OrderFormPage extends ConsumerWidget {
               builder: (context) {
                 return Dialog(
                   child: Column(
-                    children: [
-                      const Text("Success"),
-                      const Text('Saved to DB successfully'),
-                      Expanded(
-                        child: FutureBuilder(
-                            future: DatabaseClient().getRows(),
-                            builder: (snapsh, con) {
-                              if (con.hasData) {
-                                return ListView(
-                                  children: con.data!
-                                      .map((e) =>
-                                          ListTile(title: Text(e.toString())))
-                                      .toList(),
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
-                      )
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text("Success"),
+                      Text('Saved to DB successfully'),
                     ],
                   ),
                 );
@@ -59,7 +45,17 @@ class OrderFormPage extends ConsumerWidget {
                   Row(
                     children: [
                       const Icon(Icons.dehaze),
-                      Expanded(child: Container())
+                      Expanded(child: Container()),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return const HomeOrdersPage();
+                            }));
+                          },
+                          icon: Semantics(
+                              label: 'iconTap',
+                              child: const Icon(Icons.fire_truck_outlined)))
                     ],
                   ),
                   const SizedBox(
