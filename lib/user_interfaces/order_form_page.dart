@@ -1,12 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:interview_amitruck/database_client/database_client.dart';
+import 'package:interview_amitruck/providers/sql/save_to_sql_provider.dart';
 
 class OrderFormPage extends ConsumerWidget {
   OrderFormPage({super.key});
   final formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(saveToSqlProvider, (t, y) {
+      y.whenOrNull(
+        success: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: Column(
+                    children: [
+                      const Text("Success"),
+                      const Text('Saved to DB successfully'),
+                      Expanded(
+                        child: FutureBuilder(
+                            future: DatabaseClient().getRows(),
+                            builder: (snapsh, con) {
+                              if (con.hasData) {
+                                return ListView(
+                                  children: con.data!
+                                      .map((e) =>
+                                          ListTile(title: Text(e.toString())))
+                                      .toList(),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
+                      )
+                    ],
+                  ),
+                );
+              });
+        },
+      );
+    });
     return FormBuilder(
         key: formKey,
         child: Scaffold(
@@ -71,19 +108,26 @@ class OrderFormPage extends ConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return OrderFormPage();
-                    }));
-                  },
-                  color: Colors.purple,
-                  child: const Text(
-                    'Confirm & Order a Trip',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                ref.watch(saveToSqlProvider).maybeWhen(orElse: () {
+                  return MaterialButton(
+                    onPressed: () {
+                      if (formKey.currentState!.saveAndValidate()) {
+                        ref
+                            .read(saveToSqlProvider.notifier)
+                            .saveToSql(data: formKey.currentState!.value);
+                      }
+                    },
+                    color: Colors.purple,
+                    child: const Text(
+                      'Confirm & Order a Trip',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                }, loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
               ],
             ),
           ),
@@ -108,6 +152,8 @@ class TextField extends ConsumerWidget {
     return FormBuilderTextField(
       name: name,
       keyboardType: keyboardType,
+      validator:
+          FormBuilderValidators.compose([FormBuilderValidators.required()]),
       decoration: InputDecoration(
           labelText: hint,
           hintText: label,
