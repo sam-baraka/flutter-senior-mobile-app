@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:interview_amitruck/providers/loginstate.dart';
+import 'package:interview_amitruck/providers/login/loginstate.dart';
 
 final loginProvider = StateNotifierProvider<LoginProvider, LoginState>(
     (ref) => LoginProvider(LoginState.initial()));
