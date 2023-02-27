@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:interview_amitruck/user_interfaces/phone_number_input_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// The welcome page which extends the consumer widget to provide access to a
@@ -44,7 +45,12 @@ class WelcomePage extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const PhoneNumberInputPage();
+                }));
+              },
               color: Colors.purple,
               child: const Text(
                 'Accept T&C and continue',
