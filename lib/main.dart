@@ -26,13 +26,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ProviderScope(
+    return ProviderScope(
       child: MaterialApp(
-        home: WelcomePage(),
-        supportedLocales: [
+        home: const WelcomePage(),
+        theme: ThemeData(
+            primaryColor: Colors.purple, primarySwatch: Colors.purple),
+        supportedLocales: const [
           Locale('en'),
         ],
-        localizationsDelegates: [
+        localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           FormBuilderLocalizations.delegate,
