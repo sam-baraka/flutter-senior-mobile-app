@@ -22,21 +22,23 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   GetIt.I.registerSingleton<SharedPreferences>(prefs);
 
-  runApp(const MyApp());
+  runApp(MyApp(
+    isLoggedIn: GetIt.I.get<SharedPreferences>().getBool('isLogged') ?? false,
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final bool isLoggedIn;
   const MyApp({
     super.key,
+    this.isLoggedIn = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        home: GetIt.I.get<SharedPreferences>().getBool('isLogged') ?? false
-            ? const HomeOrdersPage()
-            : const WelcomePage(),
+        home: isLoggedIn ? const HomeOrdersPage() : const WelcomePage(),
         theme: ThemeData(
             primaryColor: Colors.purple, primarySwatch: Colors.purple),
         supportedLocales: const [
