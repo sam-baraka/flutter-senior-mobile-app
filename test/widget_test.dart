@@ -119,4 +119,21 @@ void main() {
       expect(find.byType(HomeOrdersPage), findsWidgets);
     });
   });
+
+  group('My Orders Page Tests', () {
+    testWidgets(
+        'Tapping on the Floating action button navigates to the next page',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(ProviderScope(
+        child: MaterialApp(
+          home: OrderFormPage(),
+        ),
+      ));
+
+      await tester.tap(find.bySemanticsLabel('iconTap'));
+      await tester.pumpAndSettle();
+      expect(find.byType(HomeOrdersPage), findsWidgets);
+    });
+  });
 }
