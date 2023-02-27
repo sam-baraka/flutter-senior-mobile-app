@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:interview_amitruck/main.dart';
+import 'package:interview_amitruck/user_interfaces/phone_number_input_page.dart';
 
 void main() {
   group('Welcome page tests', () {
@@ -21,6 +22,21 @@ void main() {
       expect(find.text('Welcome to Amitruck Driver'), findsOneWidget);
 // Verify that we have a single button
       expect(find.byType(MaterialButton), findsOneWidget);
+    });
+
+    testWidgets(
+        'Tapping on the button navigates to the phone number input page',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(const MyApp());
+
+      await tester.tap(find.byType(MaterialButton));
+      await tester.pumpAndSettle();
+      expect(
+          find.byType(
+            PhoneNumberInputPage,
+          ),
+          findsOneWidget);
     });
   });
 }
