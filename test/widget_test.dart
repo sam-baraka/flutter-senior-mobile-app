@@ -45,7 +45,7 @@ void main() {
     testWidgets('The phone input page shows successfully',
         (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(const MaterialApp(
+      await tester.pumpWidget(MaterialApp(
         home: PhoneNumberInputPage(),
       ));
 
@@ -59,7 +59,7 @@ void main() {
     testWidgets('Tapping on the button navigates to the phone code input page',
         (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(const MaterialApp(
+      await tester.pumpWidget(MaterialApp(
         home: PhoneNumberInputPage(),
       ));
 
