@@ -8,6 +8,18 @@ class WelcomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return Column(
+      children: [
+        const Text('Welcome to Amitruck Driver'),
+        MaterialButton(
+          onPressed: () {},
+          color: Colors.purple,
+          child: const Text(
+            'Accept T&C and continue',
+            style: TextStyle(color: Colors.white),
+          ),
+        )
+      ],
+    );
   }
 }
