@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:interview_amitruck/database_client/database_client.dart';
@@ -19,7 +18,7 @@ void main() async {
   group('DatabaseClient tests', () {
     final DatabaseClient databaseClient = DatabaseClient();
 
-    test('The database clent saves to the db successfully', () async {
+    test('The database client saves to the db successfully', () async {
       final data = {'key1': 'value1', 'key2': 2};
 
       await databaseClient.saveToDb(data: data);
