@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:interview_amitruck/providers/login_provider.dart';
 import 'package:interview_amitruck/user_interfaces/order_form_page.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 
@@ -10,6 +11,15 @@ class PhoneCodeInputPage extends ConsumerWidget {
   final formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(loginProvider, (t, y) {
+      y.maybeWhen(
+          orElse: () {},
+          success: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return OrderFormPage();
+            }));
+          });
+    });
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(16.0),
@@ -44,18 +54,22 @@ class PhoneCodeInputPage extends ConsumerWidget {
                       ));
                 },
                 name: 'code'),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return OrderFormPage();
-                }));
+            ref.watch(loginProvider).maybeWhen(
+              orElse: () {
+                return MaterialButton(
+                  onPressed: () {
+                    ref.read(loginProvider.notifier).login();
+                  },
+                  color: Colors.purple,
+                  child: const Text(
+                    'Validate and Continue',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
               },
-              color: Colors.purple,
-              child: const Text(
-                'Validate and Continue',
-                style: TextStyle(color: Colors.white),
-              ),
+              loading: () {
+                return const Center(child: CircularProgressIndicator());
+              },
             ),
             const Expanded(child: SizedBox()),
             MaterialButton(
