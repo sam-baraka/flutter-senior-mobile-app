@@ -8,10 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:form_builder_phone_field/form_builder_phone_field.dart';
 
 import 'package:interview_amitruck/main.dart';
-import 'package:interview_amitruck/user_interfaces/phone_code_input_page.dart';
+import 'package:interview_amitruck/user_interfaces/order_form_page.dart';
 import 'package:interview_amitruck/user_interfaces/phone_number_input_page.dart';
 
 void main() {
@@ -64,6 +63,37 @@ void main() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MaterialApp(
         home: PhoneNumberInputPage(),
+      ));
+
+      await tester.pumpWidget(MaterialApp(
+        home: PhoneNumberInputPage(),
+      ));
+      await tester.tap(find.byType(MaterialButton));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('field cannot be empty'), findsWidgets);
+    });
+  });
+
+  group('Order Form tests', () {
+    testWidgets('The order form appears as expected',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester
+          .pumpWidget(ProviderScope(child: MaterialApp(home: OrderFormPage())));
+      expect(find.textContaining('Fill Below To Order'), findsWidgets);
+      expect(find.textContaining('Delivery Instructions'), findsWidgets);
+      expect(find.textContaining('Pickup point'), findsWidgets);
+      expect(find.textContaining('Weight'), findsWidgets);
+    });
+
+    testWidgets(
+        'Tapping on the button without input results in a validation error',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(ProviderScope(
+        child: MaterialApp(
+          home: OrderFormPage(),
+        ),
       ));
 
       await tester.pumpWidget(MaterialApp(
