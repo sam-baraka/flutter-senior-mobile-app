@@ -37,6 +37,7 @@ class PhoneNumberInputPage extends ConsumerWidget {
               priorityListByIsoCode: const ['KE'],
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(),
+                FormBuilderValidators.min(9)
               ]),
             ),
             Semantics(

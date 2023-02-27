@@ -1,7 +1,0 @@
-2023-03-02T11:04:44+03:00 | 7b273a2f22c6d976592c57851373c88e1534bf87 | fixed bugs
-2023-02-28T12:02:29+03:00 | 4475fe59a303df88af2c58d308d114a902eae0dd | fix: Typos on readme
-2023-02-28T12:01:31+03:00 | d0ce7c9107317ca8df2a6d34c7f43b93b9cf05d6 | readme: Added video version of the readme for accessibility
-2023-02-28T11:54:59+03:00 | c8b8a03e067b49536be7ee3241fedebedc053f31 | widget tests
-2023-02-28T11:28:24+03:00 | 7e3343295a54eb9f3d08a88dacba692536346b14 | feat: Tested the navigation
-2023-02-28T11:28:12+03:00 | 5a85d3e1bb73b3b1bca9f81d49601ffafda1926b | feat: Removed const modifiers
-2023-02-28T11:28:00+03:00 | 6651a5df9c835b5e9ffdaddc29f68ff4619bed0a | fix: removed unneccesary dialog

@@ -17,7 +17,7 @@ class PhoneCodeInputPage extends ConsumerWidget {
       y.maybeWhen(
           orElse: () {},
           success: () {
-             GetIt.I.get<SharedPreferences>().setBool('isLogged', true);
+            GetIt.I.get<SharedPreferences>().setBool('isLogged', true);
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return OrderFormPage();
             }));
@@ -35,7 +35,7 @@ class PhoneCodeInputPage extends ConsumerWidget {
               height: 200,
             ),
             const Text(
-              'Enter your phone number to Join Amitruck',
+              'Enter verification code to Confirm your phone number',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             ),
