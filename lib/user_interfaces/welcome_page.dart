@@ -56,7 +56,10 @@ class WelcomePage extends ConsumerWidget {
                 'Accept T&C and continue',
                 style: TextStyle(color: Colors.white),
               ),
-            )
+            ),
+            const SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),
