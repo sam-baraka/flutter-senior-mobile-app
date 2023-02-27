@@ -2,6 +2,8 @@
 
 A new flutter project for the assessment for the mobile application developer role at amitruck.
 
+## [Video Version of this Reade](https://www.loom.com/share/82ab00bf313244b1a8248aa6f063125c)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
