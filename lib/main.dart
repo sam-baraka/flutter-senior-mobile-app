@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get_it/get_it.dart';
+import 'package:interview_amitruck/user_interfaces/home_orders_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'user_interfaces/welcome_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,18 +19,24 @@ void main() async {
 
   /// Register the database as a singleton
   GetIt.I.registerSingleton<Database>(database);
+  final prefs = await SharedPreferences.getInstance();
+  GetIt.I.registerSingleton<SharedPreferences>(prefs);
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        home: const WelcomePage(),
+        home: GetIt.I.get<SharedPreferences>().getBool('isLogged') ?? false
+            ? const HomeOrdersPage()
+            : const WelcomePage(),
         theme: ThemeData(
             primaryColor: Colors.purple, primarySwatch: Colors.purple),
         supportedLocales: const [

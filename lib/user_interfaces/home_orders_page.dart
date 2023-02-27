@@ -30,9 +30,51 @@ class HomeOrdersPage extends ConsumerWidget {
           builder: (snapsh, con) {
             if (con.hasData) {
               return ListView(
-                children: con.data!
-                    .map((e) => ListTile(title: Text(jsonEncode(e['data']))))
-                    .toList(),
+                children: con.data!.map((e) {
+                  String x = e['data'];
+                  var y = x.replaceAll('=', ':');
+                  Map<String, dynamic> data = jsonDecode(y);
+                  return ListTile(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(data['pickup_point']),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      'Drop off point :${data['drp_off_point']}'),
+                                  Text('Pickup point :${data['pickup_point']}'),
+                                  Text(
+                                      'Delivery instructions:${data['delivery_instructions']}'),
+                                  Text('Weight:${data['weight']} KGs'),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Close'))
+                              ],
+                            );
+                          });
+                    },
+                    leading: const Icon(
+                      Icons.delivery_dining,
+                      color: Colors.purple,
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.purple,
+                    ),
+                    title: Text(data['pickup_point']),
+                    subtitle: Text(data['delivery_instructions'] ?? ''),
+                  );
+                }).toList(),
               );
             } else {
               return Container();
