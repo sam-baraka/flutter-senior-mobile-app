@@ -6,7 +6,9 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:form_builder_phone_field/form_builder_phone_field.dart';
 
 import 'package:interview_amitruck/main.dart';
 import 'package:interview_amitruck/user_interfaces/phone_code_input_page.dart';
@@ -56,20 +58,20 @@ void main() {
       expect(find.byType(MaterialButton), findsWidgets);
     });
 
-    testWidgets('Tapping on the button navigates to the phone code input page',
+    testWidgets(
+        'Tapping on the button without input results in a validation error',
         (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MaterialApp(
         home: PhoneNumberInputPage(),
       ));
 
-      await tester.tap(find.text('Confirm and Continue'));
+      await tester.pumpWidget(MaterialApp(
+        home: PhoneNumberInputPage(),
+      ));
+      await tester.tap(find.byType(MaterialButton));
       await tester.pumpAndSettle();
-      expect(
-          find.byType(
-            PhoneCodeInputPage,
-          ),
-          findsOneWidget);
+      expect(find.textContaining('field cannot be empty'), findsWidgets);
     });
   });
 }

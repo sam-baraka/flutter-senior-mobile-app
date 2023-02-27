@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,23 +39,26 @@ class PhoneNumberInputPage extends ConsumerWidget {
                 FormBuilderValidators.required(),
               ]),
             ),
-            MaterialButton(
-              onPressed: () {
-                if (formKey.currentState!.saveAndValidate()) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return PhoneCodeInputPage();
-                  }));
-                }
-              },
-              color: Colors.purple,
-              child: const Text(
-                'Confirm and Continue',
-                style: TextStyle(color: Colors.white),
+            Semantics(
+              label: 'Next',
+              child: MaterialButton(
+                onPressed: () {
+                  if (formKey.currentState!.saveAndValidate()) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return PhoneCodeInputPage();
+                    }));
+                  }
+                },
+                color: Colors.purple,
+                child: const Text(
+                  'Confirm and Continue',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             const Expanded(child: SizedBox()),
-            MaterialButton(
+            CupertinoButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
