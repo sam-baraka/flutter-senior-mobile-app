@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:interview_amitruck/main.dart';
+import 'package:interview_amitruck/user_interfaces/home_orders_page.dart';
 import 'package:interview_amitruck/user_interfaces/order_form_page.dart';
 import 'package:interview_amitruck/user_interfaces/phone_number_input_page.dart';
 
@@ -102,6 +103,20 @@ void main() {
       await tester.tap(find.byType(MaterialButton));
       await tester.pumpAndSettle();
       expect(find.textContaining('field cannot be empty'), findsWidgets);
+    });
+
+    testWidgets('Tapping on the truck icon navigates to the orders screen',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(ProviderScope(
+        child: MaterialApp(
+          home: OrderFormPage(),
+        ),
+      ));
+
+      await tester.tap(find.bySemanticsLabel('iconTap'));
+      await tester.pumpAndSettle();
+      expect(find.byType(HomeOrdersPage), findsWidgets);
     });
   });
 }
