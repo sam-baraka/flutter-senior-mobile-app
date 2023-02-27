@@ -19,6 +19,8 @@ void main() {
 
       // Verify that our counter starts at 0.
       expect(find.text('Welcome to Amitruck Driver'), findsOneWidget);
+// Verify that we have a single button
+      expect(find.byType(MaterialButton), findsOneWidget);
     });
   });
 }
