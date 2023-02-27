@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 # AmitruckInterviewAssessment
 
 - To be able to run this application, you have to have flutter installed on your computer as described in the insturctions above.
-
+- It runs on the latest version of flutter : [Flutter 3.7.5](https://github.com/flutter/flutter/releases/tag/3.7.5)
 - This application uses Test Driven Development to showcase how its done in flutter.
 
 # How to Test
